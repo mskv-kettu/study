@@ -42,14 +42,14 @@ GPIO.setup(comparator, GPIO.IN)
 # ADC realisation, returns digital signal
 def adc():
     signal = 128
-    for value in range(7,0,-1):
+    for value in range(8,0,-1):
         bin2set(signal, dac) 
 #        voltage = maxVoltage * signal / levels
         time.sleep(period)
         comparatorValue = GPIO.input(comparator)
         if comparatorValue == 0:
-            signal -= 2**value
-        signal += 2**(value-1)
+            signal -= 2**(value - 1)
+        signal += 2**(value-1-1)
     signal-=1
     bin2set(signal, dac)
 #    print("Digital value = {:^3}, Analog voltage = {:.2f} V".format(signal,voltage))
@@ -88,7 +88,7 @@ try:
     # File data
     data_str = []
     for i in range(len(data)):
-        data_str.append("{} {:.2f}".format(data[i], data_time[i]))
+        data_str.append("{}".format(data[i]))
 
     with open("data.txt", "w") as data_file:
         data_file.write("\n".join(data_str))
